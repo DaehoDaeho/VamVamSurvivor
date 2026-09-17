@@ -13,8 +13,19 @@ public class EnemyChaser : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
+    public void SetTarget(Transform targetTransform)
+    {
+        playerTransform = targetTransform;
+    }
+
     private void FixedUpdate()
     {
+        if(playerTransform == null)
+        {
+            body.linearVelocity = Vector2.zero;
+            return;
+        }
+
         Vector2 playerPosition = playerTransform.position;
         Vector2 enemyPosition = transform.position;
 
