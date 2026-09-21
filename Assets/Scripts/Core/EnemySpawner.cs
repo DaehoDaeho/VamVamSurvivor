@@ -3,9 +3,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private EnemyChaser enemyPrefab;
-    [SerializeField] private Transform[] spawnPoint;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float spawnInterval = 2.0f;
+
+    [SerializeField] private float minSpawnDistance = 6.0f;
+    [SerializeField] private float maxSpawnDistance = 9.0f;
 
     private float spawnTimer;
     private int spawnIndex = 0;
@@ -30,23 +32,32 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        EnemyChaser newEnemy = Instantiate(enemyPrefab, spawnPoint[spawnIndex].position, Quaternion.identity);
+        // 생성 위치 계산.
+        Vector2 spawnPosition = GetSpawnPosition();
+
+        EnemyChaser newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
         if(newEnemy != null)
         {
             newEnemy.SetTarget(playerTransform);
-            UpdateSpawnIndex();
         }
     }
 
-    void UpdateSpawnIndex()
+    Vector2 GetSpawnPosition()
     {
-        //spawnIndex++;
-        //if(spawnIndex >= spawnPoint.Length)
-        //{
-        //    spawnIndex = 0;
-        //}
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        float randomDistance = Random.Range(minSpawnDistance, maxSpawnDistance);
+        Vector2 playerPosition = playerTransform.position;
 
-        spawnIndex = (spawnIndex + 1) % spawnPoint.Length;
+        return playerPosition + (randomDirection * randomDistance);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(playerTransform.position, minSpawnDistance);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(playerTransform.position, maxSpawnDistance);
     }
 }
