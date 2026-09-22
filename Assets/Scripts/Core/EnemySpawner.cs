@@ -9,6 +9,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float minSpawnDistance = 6.0f;
     [SerializeField] private float maxSpawnDistance = 9.0f;
 
+    [SerializeField] private int maxEnemyCount = 1;
+
+    private int currentEnemyCount = 0;
+
     private float spawnTimer;
     private int spawnIndex = 0;
 
@@ -32,6 +36,11 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
+        if(maxEnemyCount > 0 && currentEnemyCount >= maxEnemyCount)
+        {
+            return;
+        }
+
         // 생성 위치 계산.
         Vector2 spawnPosition = GetSpawnPosition();
 
@@ -40,6 +49,11 @@ public class EnemySpawner : MonoBehaviour
         if(newEnemy != null)
         {
             newEnemy.SetTarget(playerTransform);
+        }
+
+        if (maxEnemyCount > 0)
+        {
+            currentEnemyCount++;
         }
     }
 
