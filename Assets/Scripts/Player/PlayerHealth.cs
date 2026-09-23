@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth -= damageAmount;
-        Debug.Log("Player HP: " + currentHealth);
+        //Debug.Log("Player HP: " + currentHealth);
 
         if(currentHealth <= 0)
         {
@@ -36,6 +36,6 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
-        Debug.Log("플레이어 사망!!!");
+        //Debug.Log("플레이어 사망!!!");
     }
 }

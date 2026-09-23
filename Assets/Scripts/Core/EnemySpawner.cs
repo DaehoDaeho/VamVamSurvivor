@@ -66,6 +66,11 @@ public class EnemySpawner : MonoBehaviour
         return playerPosition + (randomDirection * randomDistance);
     }
 
+    public void SetSpawnInterval(float newSpawnInterval)
+    {
+        spawnInterval = newSpawnInterval;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
