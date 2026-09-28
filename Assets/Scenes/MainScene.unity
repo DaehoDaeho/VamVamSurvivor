@@ -148,7 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df200490b95faac4b8a599f1ea85c7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2565106002257548079, guid: 9ff8d0603b92b8b42a95f9233f0b41c5, type: 3}
+  enemyPrefabs:
+  - {fileID: 2565106002257548079, guid: 9ff8d0603b92b8b42a95f9233f0b41c5, type: 3}
+  - {fileID: 2565106002257548079, guid: 0c270ae0c96825341aa6dcfd75433dd6, type: 3}
+  - {fileID: 2565106002257548079, guid: 81c3771fc8a63ba4797b8d28e87f09f3, type: 3}
+  enemyChance: 41000000190000000a000000
   playerTransform: {fileID: 2107170717}
   spawnInterval: 2
   minSpawnDistance: 6
@@ -181,6 +185,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -306,6 +311,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b0e48cd2fe6404bbb2547ec9337e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2107170717}
+  offset: {x: 0, y: 0, z: -10}
+  followSpeed: 5
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

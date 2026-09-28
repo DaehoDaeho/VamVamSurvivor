@@ -1,8 +1,17 @@
 using UnityEngine;
 
+public enum EnemyIndex
+{
+    Normal,
+    Fast,
+    Heavy
+}
+
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private EnemyChaser enemyPrefab;
+    [SerializeField] private EnemyChaser[] enemyPrefabs;
+    [SerializeField] private int[] enemyChance = { 65, 25, 10 };
+
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float spawnInterval = 2.0f;
 
@@ -44,7 +53,10 @@ public class EnemySpawner : MonoBehaviour
         // 생성 위치 계산.
         Vector2 spawnPosition = GetSpawnPosition();
 
-        EnemyChaser newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        // 생성할 적을 선택하는 처리.
+        EnemyChaser selectedPrefab = GetEnemyPrefab();
+
+        EnemyChaser newEnemy = Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
 
         if(newEnemy != null)
         {
@@ -55,6 +67,25 @@ public class EnemySpawner : MonoBehaviour
         {
             currentEnemyCount++;
         }
+    }
+
+    EnemyChaser GetEnemyPrefab()
+    {
+        int randomValue = Random.Range(0, 100);
+
+        // randomValue가 0 ~ 9일 경우.
+        if(randomValue < enemyChance[(int)EnemyIndex.Heavy])
+        {
+            return enemyPrefabs[(int)EnemyIndex.Heavy];
+        }
+
+        // randomValue가 10 ~ 34일 경우.
+        if(randomValue < enemyChance[(int)EnemyIndex.Heavy] + enemyChance[(int)EnemyIndex.Fast])
+        {
+            return enemyPrefabs[(int)EnemyIndex.Fast];
+        }
+
+        return enemyPrefabs[(int)EnemyIndex.Normal];
     }
 
     Vector2 GetSpawnPosition()
