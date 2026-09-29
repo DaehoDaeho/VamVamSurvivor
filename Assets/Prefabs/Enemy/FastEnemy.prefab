@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 4
   stopDistance: 0.8
   separationRadius: 0.6
   separationWeight: 0.8

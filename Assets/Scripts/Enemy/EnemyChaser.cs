@@ -10,12 +10,21 @@ public class EnemyChaser : MonoBehaviour
     [SerializeField] private float separationWeight = 0.8f;
 
     [SerializeField] private LayerMask enemyLayer;
-
+    
     private Rigidbody2D body;
+    private SpriteRenderer spriteRenderer;
+
+    private float lastDirection = 1.0f;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        FlipSprite();
     }
 
     public void SetTarget(Transform targetTransform)
@@ -53,6 +62,11 @@ public class EnemyChaser : MonoBehaviour
         if(finalDirection != Vector2.zero)
         {
             finalDirection = finalDirection.normalized;
+
+            if(finalDirection.x != 0.0f && finalDirection.x != lastDirection)
+            {
+                lastDirection = finalDirection.x;
+            }
         }
 
         body.linearVelocity = finalDirection * moveSpeed;
@@ -86,5 +100,15 @@ public class EnemyChaser : MonoBehaviour
         }
 
         return separationDirection;
+    }
+
+    void FlipSprite()
+    {
+        if(spriteRenderer == null)
+        {
+            return;
+        }
+
+        spriteRenderer.flipX = lastDirection > 0.0f ? false : true;
     }
 }
