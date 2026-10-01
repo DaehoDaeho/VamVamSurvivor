@@ -6,6 +6,11 @@ using UnityEngine;
 public class PlayerAutoAttack : MonoBehaviour
 {
     [SerializeField] private PlayerTargetFinder targetFinder;
+    [SerializeField] private ProjectileMovement projectilePrefab;
+
+    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private float projectileSpeed = 8.0f;
+
     [SerializeField] private int damageAmount = 1;
     [SerializeField] private float attackInterval = 0.7f;
 
@@ -47,11 +52,40 @@ public class PlayerAutoAttack : MonoBehaviour
             return;
         }
 
-        EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
-        if(enemyHealth != null)
+        bool isProjectileCreated = SpawnProjectile(target);
+        if(isProjectileCreated == false)
         {
-            enemyHealth.TakeDamage(damageAmount);
-            nextAttackTime = Time.time + attackInterval;
+            return;
         }
+
+        nextAttackTime = Time.time + attackInterval;
+    }
+
+    bool SpawnProjectile(Transform target)
+    {
+        if(projectilePrefab == null)
+        {
+            Debug.LogWarning("투사체 프리팹이 없습니다.");
+            return false;
+        }
+
+        Vector2 startPosition = projectileSpawnPoint.position;
+        Vector2 targetPosition = target.position;
+        Vector2 direction = targetPosition - startPosition;
+
+        if(direction == Vector2.zero)
+        {
+            return false;
+        }
+
+        ProjectileMovement projectileObject = Instantiate(projectilePrefab, startPosition, Quaternion.identity);
+
+        if(projectileObject != null)
+        {
+            projectileObject.Initialize(direction, projectileSpeed);
+            return true;
+        }
+
+        return false;
     }
 }
