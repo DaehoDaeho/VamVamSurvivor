@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int currentHealth;
+    [SerializeField] private Image playerHP;
 
     // 접근제한자 / 접근지정자.
     // public : 외부에서 제약 없이 접근 가능.
@@ -15,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         isDead = false;
+        UpdatePlayerHPUI();
     }
 
     public void TakeDamage(int damageAmount)
@@ -27,7 +30,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damageAmount;
         //Debug.Log("Player HP: " + currentHealth);
 
-        if(currentHealth <= 0)
+        UpdatePlayerHPUI();
+
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -37,5 +42,16 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
         //Debug.Log("플레이어 사망!!!");
+    }
+
+    void UpdatePlayerHPUI()
+    {
+        if(playerHP == null)
+        {
+            return;
+        }
+
+        // % 계산 : 현재 체력 / 최대 체력.
+        playerHP.fillAmount = (float)currentHealth / (float)maxHealth;
     }
 }

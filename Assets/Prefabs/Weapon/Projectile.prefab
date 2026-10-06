@@ -166,4 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 3
+  damageAmount: 1
+  pierceCount: 1
   body: {fileID: 5445992353636479209}
