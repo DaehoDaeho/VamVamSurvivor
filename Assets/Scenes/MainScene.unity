@@ -838,6 +838,7 @@ GameObject:
   - component: {fileID: 2107170719}
   - component: {fileID: 2107170720}
   - component: {fileID: 2107170721}
+  - component: {fileID: 2107170722}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1043,6 +1044,22 @@ MonoBehaviour:
   projectileSpeed: 8
   damageAmount: 1
   attackInterval: 0.7
+--- !u!114 &2107170722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107170713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31550e6a2bb9efc4489b5b643a448df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expGemLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  detectRange: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

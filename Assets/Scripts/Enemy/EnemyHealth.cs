@@ -3,6 +3,10 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 3;
+
+    [SerializeField] private ExpGem expGemPrefab;
+    [SerializeField] private int expAmount = 1;
+
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private float hitFeedbackInterval = 0.3f;
     [SerializeField] private Color hitColor = Color.white;
@@ -79,6 +83,25 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
+
+        // 보석 생성.
+        DropExpGem();
+
         Destroy(gameObject);
+    }
+
+    void DropExpGem()
+    {
+        if(expGemPrefab == null)
+        {
+            return;
+        }
+
+        ExpGem expGem = Instantiate(expGemPrefab, transform.position, Quaternion.identity);
+
+        if(expGem != null)
+        {
+            expGem.Initialize(expAmount);
+        }
     }
 }

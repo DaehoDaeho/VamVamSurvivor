@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  moveSpeed: 3
+  moveSpeed: 1.5
   stopDistance: 0.8
   separationRadius: 0.6
   separationWeight: 0.8
@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  expGemPrefab: {fileID: -6861985828602902603, guid: cc3ae60d2dbb78e48b814f1c75727560, type: 3}
+  expAmount: 1
   spriteRenderer: {fileID: 0}
   hitFeedbackInterval: 0.3
   hitColor: {r: 1, g: 0, b: 1, a: 1}
