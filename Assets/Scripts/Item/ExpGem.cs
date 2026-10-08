@@ -18,14 +18,16 @@ public class ExpGem : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+        PlayerExperience playerExperience = collision.GetComponent<PlayerExperience>();
 
-        if(playerHealth == null)
+        if(playerExperience == null)
         {
             return;
         }
 
         Debug.Log("EXP + " + experienceAmount);
+
+        playerExperience.AddExperience(experienceAmount);
 
         Destroy(gameObject);
     }
