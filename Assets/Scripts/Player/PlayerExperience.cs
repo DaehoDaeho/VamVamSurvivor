@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerExperience : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerExperience : MonoBehaviour
     private int currentLevel;
     private int currentExperience;
     private int experienceToNextLevel;
+
+    public event Action onLevelUp;
 
     private void Awake()
     {
@@ -44,6 +47,8 @@ public class PlayerExperience : MonoBehaviour
             currentExperience -= experienceToNextLevel;
             currentLevel++;
             experienceToNextLevel += experienceIncreasePerLevel;
+
+            onLevelUp?.Invoke();
 
             Debug.Log("현재 레벨: " + currentLevel);
         }

@@ -54,4 +54,21 @@ public class PlayerHealth : MonoBehaviour
         // % 계산 : 현재 체력 / 최대 체력.
         playerHP.fillAmount = (float)currentHealth / (float)maxHealth;
     }
+
+    public void Heal(int healAmount)
+    {
+        if(isDead == true)
+        {
+            return;
+        }
+
+        currentHealth += healAmount;
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UpdatePlayerHPUI();
+    }
 }

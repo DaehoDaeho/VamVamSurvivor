@@ -48,4 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
         spriteRenderer.flipX = lastDirection > 0.0f ? false : true;
     }
+
+    public void IncreaseMoveSpeed(float amount)
+    {
+        moveSpeed += amount;
+    }
 }
