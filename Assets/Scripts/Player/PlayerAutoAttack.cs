@@ -14,6 +14,7 @@ public class PlayerAutoAttack : MonoBehaviour
     [SerializeField] private int damageAmount = 1;
     [SerializeField] private float attackInterval = 0.7f;
 
+    private int bonusDamage;
     private float nextAttackTime;
 
     private void Awake()
@@ -83,9 +84,25 @@ public class PlayerAutoAttack : MonoBehaviour
         if(projectileObject != null)
         {
             projectileObject.Initialize(direction, projectileSpeed);
+            projectileObject.AddBonusDamage(bonusDamage);
             return true;
         }
 
         return false;
+    }
+
+    public void IncreaseDamage(int amount)
+    {
+        bonusDamage += amount;
+    }
+
+    public void IncreaseAttackSpeed(float amount)
+    {
+        attackInterval -= amount;
+
+        if(attackInterval < 0.15f)
+        {
+            attackInterval = 0.15f;
+        }
     }
 }

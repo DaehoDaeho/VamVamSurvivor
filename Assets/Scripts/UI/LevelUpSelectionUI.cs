@@ -5,11 +5,14 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private PlayerExperience playerExperience;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private PlayerAutoAttack playerAutoAttack;
 
     [SerializeField] private GameObject selectionPanel;
 
     [SerializeField] private float moveSpeedIncrease = 0.5f;
     [SerializeField] private int healAmount = 2;
+    [SerializeField] private int damageIncrease = 1;
+    [SerializeField] private float attackIntervalDecrease = 0.1f;
 
     private int pendingSelections;
 
@@ -52,6 +55,20 @@ public class LevelUpSelectionUI : MonoBehaviour
         playerHealth.Heal(healAmount);
 
         // 선택 UI 종료 처리.
+        FinishSelection();
+    }
+
+    public void ChooseDamage()
+    {
+        playerAutoAttack.IncreaseDamage(damageIncrease);
+
+        FinishSelection();
+    }
+
+    public void ChooseAttackSpeed()
+    {
+        playerAutoAttack.IncreaseAttackSpeed(attackIntervalDecrease);
+
         FinishSelection();
     }
 

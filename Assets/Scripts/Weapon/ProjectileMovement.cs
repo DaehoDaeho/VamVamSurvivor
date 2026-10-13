@@ -44,6 +44,11 @@ public class ProjectileMovement : MonoBehaviour
         isInitialized = true;
     }
 
+    public void AddBonusDamage(int amount)
+    {
+        damageAmount += amount;
+    }
+
     private void FixedUpdate()
     {
         if(isInitialized == false)
