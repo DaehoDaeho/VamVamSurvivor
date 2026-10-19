@@ -14,6 +14,9 @@ public class PlayerAutoAttack : MonoBehaviour
     [SerializeField] private int damageAmount = 1;
     [SerializeField] private float attackInterval = 0.7f;
 
+    [SerializeField] private int projectileCount = 1;
+    [SerializeField] private float spreadAngle = 15.0f;
+
     private int bonusDamage;
     private float nextAttackTime;
 
@@ -79,16 +82,23 @@ public class PlayerAutoAttack : MonoBehaviour
             return false;
         }
 
-        ProjectileMovement projectileObject = Instantiate(projectilePrefab, startPosition, Quaternion.identity);
-
-        if(projectileObject != null)
+        for(int i=0; i<projectileCount; i++)
         {
-            projectileObject.Initialize(direction, projectileSpeed);
-            projectileObject.AddBonusDamage(bonusDamage);
-            return true;
+            float center = (projectileCount - 1) * 0.5f;
+            float angleOffset = (i - center) * spreadAngle;
+
+            Vector2 shotDirection = Quaternion.Euler(0.0f, 0.0f, angleOffset) * direction;
+
+            ProjectileMovement projectileObject = Instantiate(projectilePrefab, startPosition, Quaternion.identity);
+
+            if (projectileObject != null)
+            {
+                projectileObject.Initialize(shotDirection, projectileSpeed);
+                projectileObject.AddBonusDamage(bonusDamage);
+            }
         }
 
-        return false;
+        return true;
     }
 
     public void IncreaseDamage(int amount)
@@ -103,6 +113,16 @@ public class PlayerAutoAttack : MonoBehaviour
         if(attackInterval < 0.15f)
         {
             attackInterval = 0.15f;
+        }
+    }
+
+    public void IncreaseProjectileCount(int amount)
+    {
+        projectileCount += amount;
+
+        if(projectileCount > 5)
+        {
+            projectileCount = 5;
         }
     }
 }

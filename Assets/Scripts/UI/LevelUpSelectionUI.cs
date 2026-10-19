@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class LevelUpSelectionUI : MonoBehaviour
 {
@@ -13,8 +14,10 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private int healAmount = 2;
     [SerializeField] private int damageIncrease = 1;
     [SerializeField] private float attackIntervalDecrease = 0.1f;
+    [SerializeField] private int projectileCountIncrease = 1;
 
     private int pendingSelections;
+    private List<LevelUpData> datas = new List<LevelUpData>();
 
     private void Awake()
     {
@@ -40,6 +43,49 @@ public class LevelUpSelectionUI : MonoBehaviour
         pendingSelections++;
         selectionPanel.SetActive(true);
         Time.timeScale = 0.0f;
+    }
+
+    public void OnClickUpgrade(int index)
+    {
+        if(index < 0 || index >= datas.Count)
+        {
+            return;
+        }
+
+        LevelUpData data = datas[index];
+
+        switch(data.levelUpType)
+        {
+            case LevelUpType.MoveSpeed:
+                {
+
+                }
+                break;
+
+            case LevelUpType.Heal:
+                {
+
+                }
+                break;
+
+            case LevelUpType.ProjectileDamage:
+                {
+
+                }
+                break;
+
+            case LevelUpType.AttackSpeed:
+                {
+
+                }
+                break;
+
+            case LevelUpType.ProjectileCount:
+                {
+
+                }
+                break;
+        }
     }
 
     public void ChooseMoveSpeed()
@@ -68,6 +114,13 @@ public class LevelUpSelectionUI : MonoBehaviour
     public void ChooseAttackSpeed()
     {
         playerAutoAttack.IncreaseAttackSpeed(attackIntervalDecrease);
+
+        FinishSelection();
+    }
+
+    public void ChooseProjectileCount()
+    {
+        playerAutoAttack.IncreaseProjectileCount(projectileCountIncrease);
 
         FinishSelection();
     }
