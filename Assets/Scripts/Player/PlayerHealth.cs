@@ -71,4 +71,17 @@ public class PlayerHealth : MonoBehaviour
 
         UpdatePlayerHPUI();
     }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        if(isDead == true)
+        {
+            return;
+        }
+
+        maxHealth += amount;
+        currentHealth += amount;
+
+        UpdatePlayerHPUI();
+    }
 }

@@ -16,6 +16,10 @@ public class LevelUpSelectionUI : MonoBehaviour
     [SerializeField] private float attackIntervalDecrease = 0.1f;
     [SerializeField] private int projectileCountIncrease = 1;
 
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private int maximumHealthIncrease = 4;
+    [SerializeField] private int regenerationIncrease = 1;
+
     private int pendingSelections;
     private List<LevelUpData> datas = new List<LevelUpData>();
 
@@ -121,6 +125,20 @@ public class LevelUpSelectionUI : MonoBehaviour
     public void ChooseProjectileCount()
     {
         playerAutoAttack.IncreaseProjectileCount(projectileCountIncrease);
+
+        FinishSelection();
+    }
+
+    public void ChooseMaximumHealth()
+    {
+        playerStats.AddMaximumHealth(maximumHealthIncrease);
+
+        FinishSelection();
+    }
+
+    public void ChooseRegeneration()
+    {
+        playerStats.AddRegeneration(regenerationIncrease);
 
         FinishSelection();
     }
