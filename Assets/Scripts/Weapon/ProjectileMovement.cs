@@ -44,6 +44,11 @@ public class ProjectileMovement : MonoBehaviour
         isInitialized = true;
     }
 
+    public void SetBaseDamage(int amount)
+    {
+        damageAmount = amount;
+    }
+
     public void AddBonusDamage(int amount)
     {
         damageAmount += amount;

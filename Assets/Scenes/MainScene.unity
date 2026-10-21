@@ -2292,6 +2292,9 @@ MonoBehaviour:
   damageIncrease: 1
   attackIntervalDecrease: 0.1
   projectileCountIncrease: 1
+  playerStats: {fileID: 0}
+  maximumHealthIncrease: 4
+  regenerationIncrease: 1
 --- !u!1 &1264651656
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,14 +3649,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a00d24ac2819f4abfb8f09c315edb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 44841ece3db7dc048aae98b32e90a75a, type: 2}
+  weaponData2: {fileID: 11400000, guid: 1ee950148756e97478eae1acd8b8df3d, type: 2}
   targetFinder: {fileID: 2107170720}
   projectilePrefab: {fileID: 3385085770929010972, guid: 9f807873e07012840b9244b48ad11ae5, type: 3}
+  projectilePrefab2: {fileID: 0}
   projectileSpawnPoint: {fileID: 200234365}
   projectileSpeed: 8
+  projectileSpeed2: 8
   damageAmount: 1
+  damageAmount2: 1
   attackInterval: 0.7
+  attackInterval2: 0.7
   projectileCount: 1
+  projectileCount2: 1
   spreadAngle: 15
+  spreadAngle2: 15
 --- !u!114 &2107170722
 MonoBehaviour:
   m_ObjectHideFlags: 0
