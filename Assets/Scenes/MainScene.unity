@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df200490b95faac4b8a599f1ea85c7b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCatalog: {fileID: 11400000, guid: a73538d22c741234a86781dfa95de775, type: 2}
   enemyPrefabs:
   - {fileID: 2565106002257548079, guid: 9ff8d0603b92b8b42a95f9233f0b41c5, type: 3}
   - {fileID: 2565106002257548079, guid: 0c270ae0c96825341aa6dcfd75433dd6, type: 3}
@@ -2736,6 +2737,7 @@ MonoBehaviour:
   difficultyIncreaseInterval: 15
   spawnIntervalDecrease: 0.2
   minSpawnInterval: 0.5
+  waveTable: {fileID: 11400000, guid: 3df46a2af1e57ce49b50fdc01297f4f5, type: 2}
 --- !u!4 &1509985623
 Transform:
   m_ObjectHideFlags: 0

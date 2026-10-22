@@ -9,6 +9,8 @@ public enum EnemyIndex
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private EnemyCatalogSO enemyCatalog;
+
     [SerializeField] private EnemyChaser[] enemyPrefabs;
     [SerializeField] private int[] enemyChance = { 65, 25, 10 };
 
@@ -24,6 +26,8 @@ public class EnemySpawner : MonoBehaviour
 
     private float spawnTimer;
     private int spawnIndex = 0;
+
+    private WaveInfo currentWaveData;
 
     // Update is called once per frame
     void Update()
@@ -56,6 +60,11 @@ public class EnemySpawner : MonoBehaviour
         // 생성할 적을 선택하는 처리.
         EnemyChaser selectedPrefab = GetEnemyPrefab();
 
+        if(selectedPrefab == null)
+        {
+            return;
+        }
+
         EnemyChaser newEnemy = Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
 
         if(newEnemy != null)
@@ -71,21 +80,59 @@ public class EnemySpawner : MonoBehaviour
 
     EnemyChaser GetEnemyPrefab()
     {
-        int randomValue = Random.Range(0, 100);
-
-        // randomValue가 0 ~ 9일 경우.
-        if(randomValue < enemyChance[(int)EnemyIndex.Heavy])
+        if(currentWaveData == null || enemyCatalog == null)
         {
-            return enemyPrefabs[(int)EnemyIndex.Heavy];
+            return null;
         }
 
-        // randomValue가 10 ~ 34일 경우.
-        if(randomValue < enemyChance[(int)EnemyIndex.Heavy] + enemyChance[(int)EnemyIndex.Fast])
+        // 적의 등장 가중치의 총합을 저장할 변수.
+        int totalWeight = 0;
+        foreach(EnemyWeight entry in currentWaveData.enemies)
         {
-            return enemyPrefabs[(int)EnemyIndex.Fast];
+            if(entry.weight > 0)
+            {
+                totalWeight += entry.weight;
+            }
         }
 
-        return enemyPrefabs[(int)EnemyIndex.Normal];
+        int randomValue = Random.Range(0, totalWeight);
+        int accumulatedWeight = 0;
+
+        foreach (EnemyWeight entry in currentWaveData.enemies)
+        {
+            if(entry.weight <= 0)
+            {
+                continue;
+            }
+
+            accumulatedWeight = accumulatedWeight + entry.weight;
+            if(randomValue < accumulatedWeight)
+            {
+                GameObject obj = enemyCatalog.FindPrefab(entry.enemyId);
+                EnemyChaser enemyChaser = obj.GetComponent<EnemyChaser>();
+                return enemyChaser;
+            }
+        }
+
+        return null;
+    }
+
+    public void SetWaveData(WaveInfo newWaveData)
+    {
+        currentWaveData = null;
+        int totalWeight = 0;
+
+        foreach(EnemyWeight entry in newWaveData.enemies)
+        {
+            totalWeight += entry.weight;
+        }
+
+        if(totalWeight <= 0)
+        {
+            return;
+        }
+
+        currentWaveData = newWaveData;
     }
 
     Vector2 GetSpawnPosition()

@@ -10,6 +10,8 @@ public class SurvivalDifficultyManager : MonoBehaviour
     [SerializeField] private float spawnIntervalDecrease = 0.2f;
     [SerializeField] private float minSpawnInterval = 0.5f;
 
+    [SerializeField] private WaveTableSO waveTable;
+
     private float survivalTime;
     private float difficultyTimer;
     private int difficultyLevel = 1;
@@ -22,6 +24,8 @@ public class SurvivalDifficultyManager : MonoBehaviour
         {
             enemySpawner.SetSpawnInterval(currentSpawnInterval);
         }
+
+        ApplyWaveData();
 
         Debug.Log("시작 난이도 레벨: " + difficultyLevel);
     }
@@ -65,8 +69,17 @@ public class SurvivalDifficultyManager : MonoBehaviour
             enemySpawner.SetSpawnInterval(currentSpawnInterval);
         }
 
+        // 웨이브 적용.
+        ApplyWaveData();
+
         Debug.Log("생존 시간: " + survivalTime);
         Debug.Log("난이도 레벨: " + difficultyLevel);
         Debug.Log("생성 간격: " + currentSpawnInterval);
+    }
+
+    void ApplyWaveData()
+    {
+        WaveInfo wave = waveTable.GetWave(difficultyLevel);
+        enemySpawner.SetWaveData(wave);
     }
 }
