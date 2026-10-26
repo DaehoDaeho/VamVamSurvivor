@@ -109,6 +109,11 @@ public class EnemySpawner : MonoBehaviour
             if(randomValue < accumulatedWeight)
             {
                 GameObject obj = enemyCatalog.FindPrefab(entry.enemyId);
+                if(obj == null)
+                {
+                    return null;
+                }
+
                 EnemyChaser enemyChaser = obj.GetComponent<EnemyChaser>();
                 return enemyChaser;
             }

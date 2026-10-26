@@ -17,15 +17,47 @@ public class EnemyCatalogSO : ScriptableObject
 {
     public List<EnemyInfo> enemies = new List<EnemyInfo>();
 
+    private Dictionary<string, GameObject> prefabLookup;
+
+    void BuildPrefabLookup()
+    {
+        prefabLookup = new Dictionary<string, GameObject>();
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            EnemyInfo enemy = enemies[i];
+
+            if(enemy == null || string.IsNullOrEmpty(enemy.id) == true || enemy.enemyPrefab == null)
+            {
+                continue;
+            }
+
+            if(prefabLookup.ContainsKey(enemy.id) == true)
+            {
+                continue;
+            }
+
+            prefabLookup.Add(enemy.id, enemy.enemyPrefab);
+        }
+    }
+
     public GameObject FindPrefab(string enemyId)
     {
-        for(int i=0; i<enemies.Count; i++)
+        if(prefabLookup == null)
         {
-            if (enemies[i].id == enemyId)
-            {
-                return enemies[i].enemyPrefab;
-            }
+            BuildPrefabLookup();
         }
+
+        GameObject foundPrefab;
+        if (prefabLookup.TryGetValue(enemyId, out foundPrefab) == true)
+        {
+            return foundPrefab;
+        }
+
+        //if (prefabLookup.ContainsKey(enemyId) == true)
+        //{
+        //    return prefabLookup[enemyId];
+        //}
 
         return null;
     }
