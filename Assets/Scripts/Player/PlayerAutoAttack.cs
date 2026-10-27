@@ -6,31 +6,22 @@ using UnityEngine;
 public class PlayerAutoAttack : MonoBehaviour
 {
     [SerializeField] private WeaponDataSO weaponData;
-    [SerializeField] private WeaponDataSO weaponData2;
-
     [SerializeField] private PlayerTargetFinder targetFinder;
     [SerializeField] private ProjectileMovement projectilePrefab;
-    [SerializeField] private ProjectileMovement projectilePrefab2;
 
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private float projectileSpeed = 8.0f;
-    [SerializeField] private float projectileSpeed2 = 8.0f;
 
     [SerializeField] private int damageAmount = 1;
-    [SerializeField] private int damageAmount2 = 1;
 
     [SerializeField] private float attackInterval = 0.7f;
-    [SerializeField] private float attackInterval2 = 0.7f;
 
     [SerializeField] private int projectileCount = 1;
-    [SerializeField] private int projectileCount2 = 1;
 
     [SerializeField] private float spreadAngle = 15.0f;
-    [SerializeField] private float spreadAngle2 = 15.0f;
 
     private int bonusDamage;
     private float nextAttackTime;
-    private bool spawnSecondWeapon = true;
 
     private void Awake()
     {
@@ -46,15 +37,6 @@ public class PlayerAutoAttack : MonoBehaviour
             attackInterval = weaponData.attackInterval;
             projectileCount = weaponData.projectileCount;
             spreadAngle = weaponData.spreadAngle;
-        }
-
-        if (weaponData2 != null)
-        {
-            projectilePrefab2 = weaponData2.projectilePrefab;
-            projectileSpeed2 = weaponData2.projectileSpeed;
-            attackInterval2 = weaponData2.attackInterval;
-            projectileCount2 = weaponData2.projectileCount;
-            spreadAngle2 = weaponData2.spreadAngle;
         }
     }
 
@@ -135,38 +117,7 @@ public class PlayerAutoAttack : MonoBehaviour
             }
         }
 
-        if(spawnSecondWeapon == true)
-        {
-            for (int i = 0; i < projectileCount2; i++)
-            {
-                float center = (projectileCount2 - 1) * 0.5f;
-                float angleOffset = (i - center) * spreadAngle2;
-
-                Vector2 shotDirection = Quaternion.Euler(0.0f, 0.0f, angleOffset) * direction;
-
-                ProjectileMovement projectileObject = Instantiate(projectilePrefab2, startPosition, Quaternion.identity);
-
-                if (projectileObject != null)
-                {
-                    projectileObject.Initialize(shotDirection, projectileSpeed2);
-
-                    // 총알의 기본 데미지를 전달하는 기능 추가.
-                    if (weaponData != null)
-                    {
-                        projectileObject.SetBaseDamage(weaponData2.baseDamage);
-                    }
-
-                    projectileObject.AddBonusDamage(bonusDamage);
-                }
-            }
-        }
-
         return true;
-    }
-
-    void SpawnProjectile2()
-    {
-
     }
 
     public void IncreaseDamage(int amount)
