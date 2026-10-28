@@ -2,7 +2,10 @@ using System.Security.Claims;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class WeaponBase : MonoBehaviour
+/// <summary>
+/// 무기 관련 추상 클래스.
+/// </summary>
+public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] private WeaponDataSO weaponData;
 
@@ -96,4 +99,19 @@ public class WeaponBase : MonoBehaviour
             attackInterval = 0.15f;
         }
     }
+
+    public void TryAttack()
+    {
+        if(CanAttack() == false)
+        {
+            return;
+        }
+
+        if(Attack() == true)
+        {
+            FinishAttack();
+        }
+    }
+
+    protected abstract bool Attack();
 }

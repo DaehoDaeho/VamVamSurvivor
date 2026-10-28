@@ -22,43 +22,6 @@ public class PlayerAutoAttack : WeaponBase
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // 공격 처리.
-        TryAutoAttack();
-    }
-
-    /// <summary>
-    /// 자동 공격 시도.
-    /// </summary>
-    void TryAutoAttack()
-    {
-        if(targetFinder == null)
-        {
-            return;
-        }
-
-        if(CanAttack() == false)
-        {
-            return;
-        }
-
-        Transform target = targetFinder.GetNearestTarget();
-        if(target == null)
-        {
-            return;
-        }
-
-        bool isProjectileCreated = SpawnProjectile(target);
-        if(isProjectileCreated == false)
-        {
-            return;
-        }
-
-        FinishAttack();
-    }
-
     bool SpawnProjectile(Transform target)
     {
         Vector2 startPosition = GetSpawnPosition();
@@ -101,5 +64,21 @@ public class PlayerAutoAttack : WeaponBase
         WeaponDataSO data = GetWeaponData();
         projectileCount = data.projectileCount;
         spreadAngle = data.spreadAngle;
+    }
+
+    protected override bool Attack()
+    {
+        if(targetFinder == null)
+        {
+            return false;
+        }
+
+        Transform target = targetFinder.GetNearestTarget();
+        if (target == null)
+        {
+            return false;
+        }
+
+        return SpawnProjectile(target);
     }
 }
