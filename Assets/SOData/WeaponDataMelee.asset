@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2219fd6415177e242a3feb3216f31114, type: 3}
+  m_Name: WeaponDataMelee
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 3385085770929010972, guid: 9f807873e07012840b9244b48ad11ae5, type: 3}
+  projectileSpeed: 8
+  attackInterval: 0.7
+  projectileCount: 1
+  spreadAngle: 15
+  baseDamage: 1

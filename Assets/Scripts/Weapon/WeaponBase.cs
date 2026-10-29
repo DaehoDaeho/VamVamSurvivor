@@ -1,6 +1,5 @@
-using System.Security.Claims;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using System.Collections.Generic;
 
 /// <summary>
 /// 무기 관련 추상 클래스.
@@ -114,4 +113,43 @@ public abstract class WeaponBase : MonoBehaviour
     }
 
     protected abstract bool Attack();
+
+    protected int GetAttackDamage()
+    {
+        int baseDamage = 1;
+        if(weaponData != null)
+        {
+            baseDamage = weaponData.baseDamage;
+        }
+
+        return Mathf.Max(1, baseDamage + bonusDamage);
+    }
+
+    protected int DamageTargetsInCircle(Vector2 center, float radius, LayerMask targetLayers)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, targetLayers);
+
+        List<IDamageable> hitTargets = new List<IDamageable>();
+
+        int damage = GetAttackDamage();
+
+        foreach(Collider2D hitCollider in colliders)
+        {
+            IDamageable damageable = hitCollider.GetComponent<IDamageable>();
+            if(damageable == null)
+            {
+                continue;
+            }
+
+            if(hitTargets.Contains(damageable) == true)
+            {
+                continue;
+            }
+
+            hitTargets.Add(damageable);
+            damageable.TakeDamage(damage);
+        }
+
+        return hitTargets.Count;
+    }
 }

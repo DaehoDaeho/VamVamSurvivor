@@ -3555,6 +3555,8 @@ GameObject:
   - component: {fileID: 2107170722}
   - component: {fileID: 2107170723}
   - component: {fileID: 2107170724}
+  - component: {fileID: 2107170725}
+  - component: {fileID: 2107170726}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3793,6 +3795,54 @@ MonoBehaviour:
   weapons:
   - {fileID: 1731883391}
   - {fileID: 628894290}
+  - {fileID: 2107170726}
+--- !u!95 &2107170725
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107170713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2d07918c8bd73b24da2c45d11aaedd4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2107170726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107170713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f076e7d9e7bd64eba433c13113a01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 9b4bbbcf25500934b9310718256b799e, type: 2}
+  projectilePrefab: {fileID: 0}
+  projectileSpawnPoint: {fileID: 0}
+  projectileSpeed: 8
+  attackInterval: 0.7
+  damageAmount: 1
+  animator: {fileID: 2107170725}
+  targetFinder: {fileID: 2107170720}
+  forwardDistance: 0.8
+  hitRadius: 0.85
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2135441358
 GameObject:
   m_ObjectHideFlags: 0
