@@ -19,3 +19,5 @@ MonoBehaviour:
     enemyPrefab: {fileID: 8867656472400149745, guid: 0c270ae0c96825341aa6dcfd75433dd6, type: 3}
   - id: heavy
     enemyPrefab: {fileID: 8867656472400149745, guid: 81c3771fc8a63ba4797b8d28e87f09f3, type: 3}
+  - id: Elite
+    enemyPrefab: {fileID: 8867656472400149745, guid: 0f3310385b76cb547af11645540568fa, type: 3}

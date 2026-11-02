@@ -72,6 +72,12 @@ public class EnemySpawner : MonoBehaviour
             newEnemy.SetTarget(playerTransform);
         }
 
+        EliteEnemyBehavior eliteBehavior = newEnemy.GetComponent<EliteEnemyBehavior>();
+        if(eliteBehavior != null)
+        {
+            eliteBehavior.SetTarget(playerTransform);
+        }
+
         if (maxEnemyCount > 0)
         {
             currentEnemyCount++;
