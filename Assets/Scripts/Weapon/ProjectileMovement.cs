@@ -18,6 +18,8 @@ public class ProjectileMovement : MonoBehaviour
 
     private int remainPierceCount;
 
+    private ProjectilePool ownerPool;
+
     private void Reset()
     {
         if (body == null)
@@ -34,7 +36,7 @@ public class ProjectileMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
     }
 
     public void Initialize(Vector2 direction, float speed)
@@ -79,7 +81,45 @@ public class ProjectileMovement : MonoBehaviour
 
         if(remainPierceCount <= 0)
         {
+            //Destroy(gameObject);
+            ReturnPool();
+        }
+    }
+
+    public void SetPool(ProjectilePool pool)
+    {
+        ownerPool = pool;
+    }
+
+    void ReturnPool()
+    {
+        if(ownerPool != null)
+        {
+            ownerPool.Release(this);
+        }
+        else
+        {
             Destroy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        Invoke(nameof(ReturnPool), lifeTime);
+    }
+
+    private void OnDisable()
+    {
+        ResetState();
+    }
+
+    void ResetState()
+    {
+        CancelInvoke();
+        remainPierceCount = pierceCount;
+        moveDirection = Vector2.zero;
+        moveSpeed = 0.0f;
+        isInitialized = false;
+        body.linearVelocity = Vector2.zero;
     }
 }

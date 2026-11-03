@@ -15,7 +15,9 @@ public abstract class WeaponBase : MonoBehaviour
 
     [SerializeField] private float attackInterval = 0.7f;
 
-    [SerializeField] private int damageAmount = 1;    
+    [SerializeField] private int damageAmount = 1;
+
+    [SerializeField] private ProjectilePool projectilePool;
 
     protected int bonusDamage;
     private float nextAttackTime;
@@ -27,6 +29,11 @@ public abstract class WeaponBase : MonoBehaviour
             projectilePrefab = weaponData.projectilePrefab;
             projectileSpeed = weaponData.projectileSpeed;
             attackInterval = weaponData.attackInterval;
+        }
+
+        if(projectilePool != null && projectilePrefab != null)
+        {
+            projectilePool.Configure(projectilePrefab.gameObject);
         }
     }
 
@@ -58,6 +65,11 @@ public abstract class WeaponBase : MonoBehaviour
             return false;
         }
 
+        if(projectilePool == null)
+        {
+            return false;
+        }
+
         Vector2 startPosition = projectileSpawnPoint.position;
 
         if (direction == Vector2.zero)
@@ -65,9 +77,11 @@ public abstract class WeaponBase : MonoBehaviour
             return false;
         }
 
-        ProjectileMovement projectileObject = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+        //ProjectileMovement projectileObject = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
 
-        if(projectileObject == null)
+        ProjectileMovement projectileObject = projectilePool.Get(projectileSpawnPoint.position);
+
+        if (projectileObject == null)
         {
             return false;
         }

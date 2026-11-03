@@ -1838,6 +1838,7 @@ MonoBehaviour:
   projectileSpeed: 8
   attackInterval: 0.7
   damageAmount: 1
+  projectilePool: {fileID: 1905733377}
 --- !u!1 &633936832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,6 +3283,7 @@ MonoBehaviour:
   projectileSpeed: 8
   attackInterval: 0.7
   damageAmount: 1
+  projectilePool: {fileID: 1905733377}
   targetFinder: {fileID: 2107170720}
   projectileCount: 1
   spreadAngle: 15
@@ -3322,6 +3324,51 @@ RectTransform:
   m_AnchoredPosition: {x: 21, y: -217}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1905733376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905733378}
+  - component: {fileID: 1905733377}
+  m_Layer: 0
+  m_Name: ProjectilerPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1905733377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905733376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a48d7bbd20ae1441881beef3557c89b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSize: 60
+--- !u!4 &1905733378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905733376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954032140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,7 +3834,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107170713}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eb98f50d854b7d45ac2bfa0734c55b5, type: 3}
   m_Name: 
@@ -3836,6 +3883,7 @@ MonoBehaviour:
   projectileSpeed: 8
   attackInterval: 0.7
   damageAmount: 1
+  projectilePool: {fileID: 0}
   animator: {fileID: 2107170725}
   targetFinder: {fileID: 2107170720}
   forwardDistance: 0.8
@@ -4130,3 +4178,4 @@ SceneRoots:
   - {fileID: 1531079847}
   - {fileID: 927632701}
   - {fileID: 1264651658}
+  - {fileID: 1905733378}
