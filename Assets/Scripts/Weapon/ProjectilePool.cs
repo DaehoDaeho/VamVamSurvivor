@@ -4,9 +4,16 @@ using System.Collections.Generic;
 public class ProjectilePool : MonoBehaviour
 {
     [SerializeField] private int initialSize = 30;
+    [SerializeField] private int maxSize = 60;
+
     private GameObject projectilePrefab;
 
     private Queue<ProjectileMovement> availableProjectiles = new Queue<ProjectileMovement>();
+
+    private HashSet<ProjectileMovement> ownedProjectiles = new HashSet<ProjectileMovement>();
+
+    private int totalCreated;
+    private int capacity;
 
     public void Configure(GameObject prefab)
     {
@@ -16,8 +23,10 @@ public class ProjectilePool : MonoBehaviour
         }
 
         projectilePrefab = prefab;
+        capacity = maxSize;
+        int count = Mathf.Min(initialSize, capacity);
 
-        for(int i=0; i<initialSize; i++)
+        for(int i=0; i< count; i++)
         {
             // 총알 생성.
             ProjectileMovement projectile = CreateProjectile();
@@ -41,6 +50,10 @@ public class ProjectilePool : MonoBehaviour
         // 추가할 코드 더 있음.
         projectile.SetPool(this);
         instance.SetActive(false);
+
+        totalCreated++;
+        ownedProjectiles.Add(projectile);
+
         return projectile;
     }
 
@@ -53,6 +66,12 @@ public class ProjectilePool : MonoBehaviour
         }
         else
         {
+            // 허용 개수만큼 모두 사용중이면 새로 만들지 않는다.
+            if(totalCreated >= capacity)
+            {
+                return null;
+            }
+
             projectile = CreateProjectile();
         }
 
@@ -65,6 +84,11 @@ public class ProjectilePool : MonoBehaviour
 
     public void Release(ProjectileMovement projectile)
     {
+        if(ownedProjectiles.Contains(projectile) == false)
+        {
+            return;
+        }
+
         projectile.gameObject.SetActive(false);
         projectile.transform.SetParent(transform);
         availableProjectiles.Enqueue(projectile);

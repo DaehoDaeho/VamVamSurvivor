@@ -120,10 +120,12 @@ public abstract class WeaponBase : MonoBehaviour
             return;
         }
 
-        if(Attack() == true)
-        {
-            FinishAttack();
-        }
+        //if(Attack() == true)
+        //{
+        //    FinishAttack();
+        //}
+        Attack();
+        FinishAttack();
     }
 
     protected abstract bool Attack();
