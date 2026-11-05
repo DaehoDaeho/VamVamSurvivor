@@ -22,6 +22,9 @@ public abstract class WeaponBase : MonoBehaviour
     protected int bonusDamage;
     private float nextAttackTime;
 
+    private readonly List<Collider2D> overlapResults = new List<Collider2D>(64);
+    private readonly HashSet<IDamageable> hitTargets = new HashSet<IDamageable>();
+
     protected void InitializeWeapon()
     {
         if (weaponData != null)
@@ -143,26 +146,30 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected int DamageTargetsInCircle(Vector2 center, float radius, LayerMask targetLayers)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(center, radius, targetLayers);
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(targetLayers);
 
-        List<IDamageable> hitTargets = new List<IDamageable>();
+        overlapResults.Clear();
+        int resultCount = Physics2D.OverlapCircle(center, radius, contactFilter, overlapResults);
+
+        hitTargets.Clear();
 
         int damage = GetAttackDamage();
 
-        foreach(Collider2D hitCollider in colliders)
+        for(int i=0; i<resultCount; i++)
         {
+            Collider2D hitCollider = overlapResults[i];
             IDamageable damageable = hitCollider.GetComponent<IDamageable>();
             if(damageable == null)
             {
                 continue;
             }
 
-            if(hitTargets.Contains(damageable) == true)
+            if(hitTargets.Add(damageable) == false)
             {
                 continue;
             }
 
-            hitTargets.Add(damageable);
             damageable.TakeDamage(damage);
         }
 
