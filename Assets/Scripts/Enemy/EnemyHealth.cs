@@ -19,6 +19,16 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private Color originColor;
     private bool isHit;
 
+    public float HealthRatio
+    {
+        get
+        {
+            int safeMaxHealth = Mathf.Max(1, maxHealth);
+            float ratio = (float)currentHealth / safeMaxHealth;
+            return Mathf.Clamp01(ratio);
+        }
+    }
+
     private void Awake()
     {
         if(spriteRenderer == null)
