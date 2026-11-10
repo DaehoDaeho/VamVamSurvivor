@@ -2143,8 +2143,8 @@ MonoBehaviour:
   - {fileID: 2109067999}
   - {fileID: 709847391}
   bossSpawnPoint: {fileID: 487408722}
-  specialWaveTime: 45
-  bossSpawnTime: 90
+  specialWaveTime: 10
+  bossSpawnTime: 20
 --- !u!4 &912455546
 Transform:
   m_ObjectHideFlags: 0
