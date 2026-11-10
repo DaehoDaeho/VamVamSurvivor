@@ -21,8 +21,6 @@ MonoBehaviour:
       weight: 2
     - enemyId: heavy
       weight: 0
-    - enemyId: Elite
-      weight: 30
   - waveName: Wave2
     enemies:
     - enemyId: normal
@@ -39,5 +37,3 @@ MonoBehaviour:
       weight: 4
     - enemyId: heavy
       weight: 3
-    - enemyId: Elite
-      weight: 20
