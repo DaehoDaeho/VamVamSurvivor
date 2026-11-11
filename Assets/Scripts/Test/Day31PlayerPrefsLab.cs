@@ -47,6 +47,15 @@ public class Day31PlayerPrefsLab : MonoBehaviour
     {
         // 저장된 키가 없다면 기본값 0을 받습니다.
         coins = PlayerPrefs.GetInt(CoinKey, 0);
+        //if(PlayerPrefs.HasKey(CoinKey) == true)
+        //{
+        //    coins = PlayerPrefs.GetInt(CoinKey);
+        //}
+        //else
+        //{
+        //    coins = 0;
+        //}
+
         Debug.Log("PlayerPrefs 불러오기 완료: " + coins);
     }
 
