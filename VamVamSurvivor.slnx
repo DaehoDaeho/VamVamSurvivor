@@ -1,5 +1,0 @@
-﻿<Solution>
-  <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="Day32.Tests.EditMode.csproj" />
-  <Project Path="Day32.Gameplay.csproj" />
-</Solution>
